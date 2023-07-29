@@ -2,8 +2,23 @@ const express = require("express");
 const app = express();
 const PORT = 3000;
 const fs = require("fs");
+const multer  = require('multer');
+
+// set the view engine to ejs
+app.set('view engine', 'ejs');
+app.use(express.static("uploads"));
+const multerStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/');
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname);
+    }
+});
+const upload = multer({ storage: multerStorage });
 
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 app.get("/", (req, res)=> {
     res.sendFile(__dirname + "/views/todo.html");
@@ -17,11 +32,18 @@ app.get("/todo.css", (req, res)=> {
     res.sendFile(__dirname + "/views/todo.css");
 });
 
-app.post("/addTodo", (req, res)=> {
-    const todo = req.body.todo;
+app.post("/addTodo", upload.single('todo_file'), (req, res)=> {
+    const todoText = req.body.todoText;
+    const file = req.file;
+    const todo = {
+        todoText,
+        taskImg: file.originalname,
+        completed: false,
+        id: Date.now()
+    }
     if(!todo) {
         res.status(400).send({
-            success: false,
+            success: false, 
             message: "Please enter a todo"
         });
         return;
@@ -100,6 +122,15 @@ app.delete("/deleteTodo/:id", (req, res) => {
             
             const dt = allTodos.filter((todo) => todo.id !== id);
             
+            // delete image from uploads folder
+            const todo = allTodos.find((todo) => todo.id === id);
+            const imgPath = __dirname + "/uploads/" + todo.taskImg;
+            fs.unlink(imgPath, (err) => {
+                if(err) {
+                    console.log(err);
+                }
+            });
+
             // console.log("After", dt);
             writeFile(JSON.stringify(dt));
             
@@ -158,10 +189,7 @@ function readAndWriteFile(todo, res) {
 
             writeFile(JSON.stringify(todoList));
             
-            res.status(200).send({
-                success: true,
-                message: "Todo added successfully!"
-            });
+            res.redirect("/");
             
         });
     } catch(err) {

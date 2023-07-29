@@ -15,21 +15,16 @@
             </div>
             <div id="tasks" class="tasks">
                 <ul id="tasksList">
-                    <!-- <li class="todoso">
-                        <div class="liText">
-                            <p>First Task</p>
-                            <div class="actionsTodo">
-                                <input type="checkbox" name="firstTask" id="firstTask">
-                                <button type="button">✕</button>
-                            </div>
-                        </div>
-                        <hr/>
-                    </li> -->
+
                 </ul>
             </div>
         </div>
         <div class="right-part">
-            <input type="text" name="" id="todoText" placeholder="I need to...">
+            <form id = "form" action="/addTodo" method="post" enctype="multipart/form-data">
+                <input type="text" name="todoText" id="todoText" placeholder="Enter the task">
+                <input type="file" name="todo_file" id="todo_file">
+                <button type="submit" class="submit-btn">Submit</button>
+            </form>
         </div>
     </section>
     <script src="./todo.js"></script>

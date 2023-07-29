@@ -13,6 +13,7 @@ function renderTasks(tasks) {
         liNode.innerHTML = `
                         <div class="liText">
                             <p class="${task.completed? "todo-checked":""}" id="todo-text${task.id}">${task.todoText}</p>
+                            <img src="/${task.taskImg}" alt="Task Image" class="taskImg" width="40px">
                             <div class="actionsTodo">
                                 <input type="checkbox" name="${task.todoText}" id="${task.id}" ${task.completed? "checked":""}>
                                 <button type="button" id="deleteBtn-${task.id}">✕</button>
@@ -48,40 +49,6 @@ function fetchAndRenderTasks() {
         alert("Something went wrong");
     });
 }
-
-todoTextNode.addEventListener("keypress", (e) => {
-    if(e.key === "Enter") {
-        const todoText = todoTextNode.value;
-        if(!todoText) {
-            alert("Please enter a todo");
-            return;
-        }
-        todoTextNode.value = "";
-        const todo = {
-            todoText,
-            completed: false,
-            id: Date.now()
-        };
-        fetch("/addTodo", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({todo})
-        })
-        .then((res) => res.json())
-        .then((data) => {
-            if(data.success) {
-                fetchAndRenderTasks();
-            } else {
-                alert(data.message);
-            }
-        })
-        .catch((err) => {
-            alert(err.message);
-        })
-    }
-});
 
 function addEvents() {
     checkboxes?.forEach((checkbox) => {

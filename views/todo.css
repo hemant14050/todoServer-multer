@@ -81,16 +81,34 @@ button {
     margin-top: 20px;
 }
 
-.right-part  > input {
+form {
     width: 100%;
-    height: 100%;
-    font-size: 70px;
-    padding: 10px;
-    padding-bottom: 30px;
-    font-weight: bold;
-    color: rgb(122, 121, 121);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#todoText {
     outline: none;
+    width:100%;
+    padding: 15px;
+    height: 20px;
+}
+
+.submit-btn {
     border: none;
+    outline: none;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(8, 84, 207);
+    color: white;
+    font-size: small;
+}
+
+.submit-btn:hover {
+    background-color: rgb(69, 131, 231);
 }
 
 .todo-checked {
