@@ -1,0 +1,116 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    padding: 20px;
+}
+
+#main-section {
+    display: flex;
+    gap: 40px;
+    width: 100vw;
+    max-width: 100%;
+}
+
+.left-part {
+    background-color: #F1F1F1;
+    border-radius: 1rem;
+    width: 29%;
+    max-width: 100%;
+}
+
+.heading {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+ul > li {
+    list-style: none;
+    width: 100%;
+}
+
+.tasksList {
+    display: flex;
+    flex-direction: column;
+}
+
+.liText {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+    margin-bottom: 12px;
+    hyphens: manual;
+    align-items: baseline;
+}
+
+.todoso {
+    margin-bottom: 20px;
+}
+
+.actionsTodo {
+    display: flex;
+    gap: 10px;
+}
+
+.actionsTodo > input, button {
+    height: 15px;
+    width: 15px;
+    cursor: pointer;
+}
+
+button {
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: large;
+    color: red;
+}
+
+.right-part {
+    width: 71%;
+    height: 70px;
+    max-width: 100%;
+    margin-top: 20px;
+}
+
+.right-part  > input {
+    width: 100%;
+    height: 100%;
+    font-size: 70px;
+    padding: 10px;
+    padding-bottom: 30px;
+    font-weight: bold;
+    color: rgb(122, 121, 121);
+    outline: none;
+    border: none;
+}
+
+.todo-checked {
+    text-decoration: line-through;
+}
+
+@media only screen and (max-width: 768px) {
+    #main-section {
+        flex-direction: column-reverse;
+    }
+
+    .left-part {
+        width: 100%;
+    }
+
+    .right-part {
+        width: 100%;
+    }
+
+    .right-part > input {
+        font-size: 60px;
+    }
+}
